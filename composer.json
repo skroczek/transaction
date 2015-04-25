@@ -1,0 +1,27 @@
+{
+  "name": "sk/transaction",
+  "description": "Library to handle transaction during multiple actions",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sebastian Kroczek",
+      "email": "sk@xbug.de"
+    }
+  ],
+  "require": {
+    "psr/log": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0",
+    "doctrine/dbal": ">2.0"
+  },
+  "autoload": {
+    "psr-0": {
+      "SK\\Transaction": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-0": {"SK\\Transaction\\Tests\\": "tests/"}
+  }
+}
