@@ -129,7 +129,8 @@ abstract class AbstractTransaction implements TransactionInterface
         try {
             $this->doRollback();
         } catch (\Exception $re) {
-            $this->getLogger()->critical(
+            // This SHOULD never happen. But for debugging propose it is better to log it.
+            $this->getLogger()->emergency(
                 'An Exception Occurred during rollback: {exception_message}',
                 array('exception_message' => $re->getMessage(), 'exception' => $re)
             );
