@@ -11,6 +11,7 @@
 
 namespace SK\Transaction;
 
+use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use SK\Transaction\Exception\CircularReferenceException;
@@ -23,7 +24,7 @@ use SK\Transaction\Exception\RollbackException;
  * @author  Sebastian Kroczek <sk@xbug.de>
  * @package SK\Transaction
  */
-abstract class AbstractTransaction implements TransactionInterface
+abstract class AbstractTransaction implements TransactionInterface, LoggerAwareInterface
 {
     /**
      * @var TransactionInterface
@@ -46,7 +47,7 @@ abstract class AbstractTransaction implements TransactionInterface
     {
         $this->logger = $logger;
 
-        if (null !== $this->child) {
+        if (null !== $this->child && $this->child instanceof LoggerAwareInterface) {
             $this->child->setLogger($logger);
         }
 
@@ -74,6 +75,9 @@ abstract class AbstractTransaction implements TransactionInterface
     {
         if ($transaction === $this) {
             throw new CircularReferenceException();
+        }
+        if ($transaction instanceof LoggerAwareInterface && $this->logger instanceof LoggerInterface) {
+            $transaction->setLogger($this->logger);
         }
         if (null !== $this->child) {
             $this->child->append($transaction);
