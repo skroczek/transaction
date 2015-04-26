@@ -1,4 +1,4 @@
-# Transaction
+# Transaction [![Build Status](https://travis-ci.org/skroczek/transaction.svg?branch=master)](https://travis-ci.org/skroczek/transaction)
 
 ## Introduction
 
