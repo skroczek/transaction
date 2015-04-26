@@ -200,7 +200,7 @@ class AbstractTransactionTest extends \PHPUnit_Framework_TestCase
         try {
             $transaction->execute();
         } catch (\SK\Transaction\Exception\RollbackException $e) {
-            $this->assertEquals('An error occurred during rollback: Dummy Exception two', $e->getMessage());
+            $this->assertEquals('An exception occurred during rollback: Dummy Exception two', $e->getMessage());
             $this->assertInstanceOf('\Exception', $e->getPrevious());
             $this->assertEquals('Dummy Exception two', $e->getPrevious()->getMessage());
             $this->assertInstanceOf('\Exception', $e->getOrigin());
