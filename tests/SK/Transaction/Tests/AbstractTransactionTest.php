@@ -193,7 +193,7 @@ class AbstractTransactionTest extends \PHPUnit_Framework_TestCase
 
         $logger = $this->getMock('\Psr\Log\LoggerInterface');
         $logger->expects($this->once())->method('error');
-        $logger->expects($this->once())->method('critical');
+        $logger->expects($this->once())->method('emergency');
 
         $transaction->setLogger($logger);
 
