@@ -86,15 +86,19 @@ class AbstractDoctrineTransactionTest extends \PHPUnit_Framework_TestCase
         return $connection;
     }
 
-    protected function createTransactionMock(Connection $connectionMock = null)
+    protected function createTransactionMock(Connection $connectionMock = null, $exception = false)
     {
         if (null === $connectionMock) {
             $connectionMock = $this->getConnectionMock();
         }
 
-        $transactionMock = $this->getMockBuilder(
-            'SK\\Transaction\\AbstractDoctrineTransaction'
-        )->getMockForAbstractClass();
+        if ($exception) {
+            $class = 'SK\\Transaction\\Tests\\Helper\\AbstractDoctrineExceptionTransaction';
+        } else {
+            $class = 'SK\\Transaction\\AbstractDoctrineTransaction';
+        }
+
+        $transactionMock = $this->getMockBuilder($class)->getMockForAbstractClass();
 
         $transactionMock->expects($this->any())->method('getConnection')->willReturn($connectionMock);
 
@@ -120,16 +124,17 @@ class AbstractDoctrineTransactionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Exception
+     * @expectedExceptionMessage Dummy exception
      */
     public function testRollbackTwoTransactions()
     {
         $connection = $this->getRollbackConnectionMock(2);
 
-        $transaction1 = $this->createTransactionMock($connection);
-        $transaction1
-            ->expects($this->once())
-            ->method('doExecute')
-            ->willThrowException(new \Exception('Dummy Exception'));
+        $transaction1 = $this->createTransactionMock($connection, true);
+//        $transaction1
+//            ->expects($this->once())
+//            ->method('doExecute')
+//            ->willThrowException(new \Exception('Dummy Exception'));
 
         $transaction = $this->createTransactionMock($connection);
         $transaction->append($transaction1);
@@ -144,11 +149,11 @@ class AbstractDoctrineTransactionTest extends \PHPUnit_Framework_TestCase
     {
         $connection = $this->getRollbackConnectionMock(2);
 
-        $transaction1 = $this->createTransactionMock($connection);
-        $transaction1
-            ->expects($this->once())
-            ->method('doExecute')
-            ->willThrowException(new \Exception('Dummy Exception'));
+        $transaction1 = $this->createTransactionMock($connection, true);
+//        $transaction1
+//            ->expects($this->once())
+//            ->method('doExecute')
+//            ->willThrowException(new \Exception('Dummy Exception'));
 
 
         $transaction2 = $this->createTransactionMock($connection);
@@ -179,11 +184,11 @@ class AbstractDoctrineTransactionTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('doExecute');
 
-        $transaction2 = $this->createTransactionMock($connection);
-        $transaction2
-            ->expects($this->once())
-            ->method('doExecute')
-            ->willThrowException(new \Exception('Dummy Exception'));
+        $transaction2 = $this->createTransactionMock($connection, true);
+//        $transaction2
+//            ->expects($this->once())
+//            ->method('doExecute')
+//            ->willThrowException(new \Exception('Dummy Exception'));
 
         $transaction->append($transaction1);
         $transaction->append($transaction2);
@@ -259,11 +264,11 @@ class AbstractDoctrineTransactionTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('doExecute');
 
-        $transaction22 = $this->createTransactionMock($connection2);
-        $transaction22
-            ->expects($this->once())
-            ->method('doExecute')
-            ->willThrowException(new \Exception('Dummy Exception'));
+        $transaction22 = $this->createTransactionMock($connection2, true);
+//        $transaction22
+//            ->expects($this->once())
+//            ->method('doExecute')
+//            ->willThrowException(new \Exception('Dummy Exception'));
 
         $transaction2->append($transaction21);
         $transaction2->append($transaction22);
