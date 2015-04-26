@@ -2,6 +2,8 @@
 
 ## Introduction
 
+This library claims to provide an easy way to implement secure transactions during nearly everything.
+
 ## Installation
 
 This library can be easily installed via composer
@@ -12,17 +14,19 @@ or just add it to your composer.json file directly.
 
 ## Usage
 
-```php
-<?php
+As a basic usage example, the CallbackTransaction is used to demonstrate the behaviour during three api calls:
 
+```php
+
+<?php
 use SK\Transaction\CallbackTransaction;
 use SK\Transaction\Exception\RollbackException;
 use SK\Transaction\ParameterBag;
 use Acme\Api1Client;
 use Acme\Api2Client;
+use Acme\Api3Client;
 
 $api1Client = new Api1Client();
-
 $callbackTransaction = new CallbackTransaction(
     // Do something important
     function (ParameterBag $parameters) use ($api1Client) {
@@ -31,25 +35,39 @@ $callbackTransaction = new CallbackTransaction(
     // Roll back if an exception in one of the next transaction(s) occurred.
     // For more information see interface \SK\Transaction\OwnExceptionRollback
     function () use ($api1Client) {
-        $api1Client->rollbackSomethingImportant();
+        $api1Client->rollback();
     }
 );
 
 $api2Client = new Api2Client();
 $callbackTransaction2 = new CallbackTransaction(
-    function (ParameterBag $parameters) use ($api2Client) {
-        $api2Client->doAlsoSomethingImportant($parameters);
+    function (ParameterBag $parameters = null) use ($api2Client) {
+        $api2Client->doSomethingImportant($parameters);
     },
     function () use ($api2Client) {
-        $api2Client->rollbackAlsoSomethingImportant();
+        $api2Client->rollback();
+    }
+);
+
+$api3Client = new Api3Client();
+$callbackTransaction2 = new CallbackTransaction(
+    function (ParameterBag $parameters) use ($api3Client) {
+        $api3Client->doSomethingImportant($parameters);
+    },
+    function () use ($api3Client) {
+        // This will never executed. For more information see \SK\Transaction\OwnExceptionRollback
+        $api3Client->rollback();
     }
 );
 
 $callbackTransaction->append($callbackTransaction2);
+$callbackTransaction->append($callbackTransaction3);
+// or
+// $callbackTransaction2->append($callbackTransaction3);
 
 try {
     $callbackTransaction->execute();
-}catch(RollbackException $e){
+} catch (RollbackException $e) {
     // Something really bad happens
     // But you can get the Exception which causes the rollback
     $e->getOrigin();
@@ -63,6 +81,7 @@ try {
 ## ToDo
 
 * Write more documentation
+* Fix typos
         
 ## License
 
