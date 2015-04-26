@@ -40,7 +40,11 @@ class ParameterBag implements \ArrayAccess
      */
     public function offsetGet($offset)
     {
-        return $this->bag[$offset];
+        if ($this->offsetExists($offset)) {
+            return $this->bag[$offset];
+        }
+
+        return null;
     }
 
     /**
@@ -56,6 +60,8 @@ class ParameterBag implements \ArrayAccess
      */
     public function offsetUnset($offset)
     {
-        unset($this->bag[$offset]);
+        if ($this->offsetExists($offset)) {
+            unset($this->bag[$offset]);
+        }
     }
 }
