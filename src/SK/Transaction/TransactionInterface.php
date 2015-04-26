@@ -29,7 +29,7 @@ interface TransactionInterface
 
     /**
      * Execute the transaction. This method MUST only be successful if all appended transactions also finished
-     * successful. It MUST be guaranteed that an unsuccessful execution roll back everything.
+     * successful. It MUST be guaranteed that an unsuccessful execution rolls back everything.
      *
      * @param ParameterBag $parameterBag
      *

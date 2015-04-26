@@ -91,7 +91,7 @@ abstract class AbstractTransaction implements TransactionInterface
             $this->doExecute($parameterBag);
         } catch (\Exception $e) {
             $this->getLogger()->error(
-                'An Exception Occurred during transaction: {exception_message}',
+                'An exception occurred during transaction: {exception_message}',
                 array('exception_message' => $e->getMessage(), 'exception' => $e)
             );
             if ($this instanceof OwnExceptionRollback) {
@@ -131,11 +131,11 @@ abstract class AbstractTransaction implements TransactionInterface
         } catch (\Exception $re) {
             // This SHOULD never happen. But for debugging propose it is better to log it.
             $this->getLogger()->emergency(
-                'An Exception Occurred during rollback: {exception_message}',
+                'An exception occurred during rollback: {exception_message}',
                 array('exception_message' => $re->getMessage(), 'exception' => $re)
             );
             throw new RollbackException(
-                sprintf('An error occurred during rollback: %s', $re->getMessage()), 0, $re, $e
+                sprintf('An exception occurred during rollback: %s', $re->getMessage()), 0, $re, $e
             );
         }
     }
