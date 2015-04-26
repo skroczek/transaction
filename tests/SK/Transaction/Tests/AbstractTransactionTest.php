@@ -207,4 +207,46 @@ class AbstractTransactionTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals('Dummy Exception', $e->getOrigin()->getMessage());
         }
     }
+
+    public function testLogger()
+    {
+
+        $transaction = $this->createTransactionMock();
+        $transaction1 = $this->createTransactionMock();
+        $transaction1
+            ->expects($this->once())
+            ->method('doExecute');
+        $transaction1->expects($this->once())
+            ->method('doRollback')
+            ->willThrowException(new \Exception('Dummy Exception two'));
+
+        $transaction2 = $this->createTransactionMock();
+        $transaction2
+            ->expects($this->once())
+            ->method('doExecute')
+            ->willThrowException(new \Exception('Dummy Exception'));
+        $transaction2->expects($this->never())
+            ->method('doRollback');
+
+        $logger = $this->getMock('\Psr\Log\LoggerInterface');
+        $logger->expects($this->once())->method('error');
+        $logger->expects($this->once())->method('emergency');
+
+        $transaction->setLogger($logger);
+
+        $transaction->append($transaction1);
+        $transaction->append($transaction2);
+
+
+
+        try {
+            $transaction->execute();
+        } catch (\SK\Transaction\Exception\RollbackException $e) {
+            $this->assertEquals('An exception occurred during rollback: Dummy Exception two', $e->getMessage());
+            $this->assertInstanceOf('\Exception', $e->getPrevious());
+            $this->assertEquals('Dummy Exception two', $e->getPrevious()->getMessage());
+            $this->assertInstanceOf('\Exception', $e->getOrigin());
+            $this->assertEquals('Dummy Exception', $e->getOrigin()->getMessage());
+        }
+    }
 }
