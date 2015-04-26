@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the transaction package.
  *
@@ -10,10 +11,29 @@
 
 namespace SK\Transaction;
 
-
+/**
+ * Interface TransactionInterface.
+ *
+ * @package SK\Transaction
+ */
 interface TransactionInterface
 {
+    /**
+     * Append another transaction.
+     *
+     * @param TransactionInterface $transaction
+     *
+     * @return mixed
+     */
     public function append(TransactionInterface $transaction);
 
+    /**
+     * Execute the transaction. This method MUST only be successful if all appended transactions also finished
+     * successful. It MUST be guaranteed that an unsuccessful execution roll back everything.
+     *
+     * @param ParameterBag $parameterBag
+     *
+     * @return mixed
+     */
     public function execute(ParameterBag $parameterBag = null);
 }

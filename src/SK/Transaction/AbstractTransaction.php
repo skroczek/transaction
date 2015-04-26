@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the transaction package.
  *
@@ -10,15 +11,20 @@
 
 namespace SK\Transaction;
 
-
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use SK\Transaction\Exception\CircularReferenceException;
 use SK\Transaction\Exception\RollbackException;
 
+/**
+ * Class AbstractTransaction.
+ * You can use this class to implement your own transaction.
+ *
+ * @author  Sebastian Kroczek <sk@xbug.de>
+ * @package SK\Transaction
+ */
 abstract class AbstractTransaction implements TransactionInterface
 {
-
     /**
      * @var TransactionInterface
      */
@@ -30,7 +36,7 @@ abstract class AbstractTransaction implements TransactionInterface
     private $logger;
 
     /**
-     * Set logger
+     * Set logger.
      *
      * @param LoggerInterface $logger
      *
@@ -47,9 +53,8 @@ abstract class AbstractTransaction implements TransactionInterface
         return $this;
     }
 
-
     /**
-     * Get logger. If not set, it returns an NullLogger instance
+     * Get logger. If not set it returns an NullLogger instance.
      *
      * @return LoggerInterface|NullLogger
      */
@@ -63,9 +68,7 @@ abstract class AbstractTransaction implements TransactionInterface
     }
 
     /**
-     * Append transaction
-     *
-     * @param TransactionInterface $transaction
+     * {@inheritdoc}
      */
     public function append(TransactionInterface $transaction)
     {
@@ -80,11 +83,7 @@ abstract class AbstractTransaction implements TransactionInterface
     }
 
     /**
-     * Run the transaction
-     *
-     * @param ParameterBag $parameterBag
-     *
-     * @throws \Exception
+     * {@inheritdoc}
      */
     public function execute(ParameterBag $parameterBag = null)
     {
@@ -114,6 +113,17 @@ abstract class AbstractTransaction implements TransactionInterface
         }
     }
 
+    /**
+     * Handle roll back of the transaction.
+     * This method is only called if an exception occurred in one of the next transaction(s).
+     * But you can change this behaviour by implementing the OwnExceptionRollback interface, In this case this method
+     * is also called, if the exception occurred in the own execution method.
+     * If an exception occurred during rollback this method throws an RollbackException exception.
+     *
+     * @param \Exception $e
+     *
+     * @throws RollbackException
+     */
     protected function rollback(\Exception $e)
     {
         try {
@@ -129,7 +139,20 @@ abstract class AbstractTransaction implements TransactionInterface
         }
     }
 
+    /**
+     * Execute the transaction.
+     * If an error occurred, which prevent the transaction from fulfilling its propose, throw any exception you want,
+     * to roll back the previous executed transactions.
+     *
+     * @param ParameterBag $parameterBag
+     *
+     * @throws \Exception
+     */
     abstract protected function doExecute(ParameterBag $parameterBag = null);
 
+    /**
+     * Roll back the execution.
+     * This method SHOULD NOT throw an exception.
+     */
     abstract protected function doRollback();
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the transaction package.
  *
@@ -10,13 +11,10 @@
 
 namespace SK\Transaction\Exception;
 
-
 class CircularReferenceException extends \RuntimeException
 {
-    public function __construct($message = "A circular reference has been detected.", $code = 0, \Exception $previous = null)
+    public function __construct($message = 'A circular reference has been detected.', $code = 0, \Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }
-
-
 }

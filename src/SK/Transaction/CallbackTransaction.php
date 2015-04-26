@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the transaction package.
  *
@@ -10,16 +11,30 @@
 
 namespace SK\Transaction;
 
-
 class CallbackTransaction extends AbstractTransaction implements Commit
 {
-
+    /**
+     * @var callable
+     */
     protected $execute;
 
+    /**
+     * @var callable
+     */
     protected $rollback;
 
+    /**
+     * @var callable
+     */
     protected $commit;
 
+    /**
+     * Constructor
+     *
+     * @param callable $execute
+     * @param callable $rollback
+     * @param callable $commit
+     */
     public function __construct(\Closure $execute, \Closure $rollback, \Closure $commit = null)
     {
         $this->execute = $execute;
@@ -27,18 +42,27 @@ class CallbackTransaction extends AbstractTransaction implements Commit
         $this->commit = $commit;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function doExecute(ParameterBag $parameterBag = null)
     {
         $callback = $this->execute;
         $callback($parameterBag);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function doRollback()
     {
         $callback = $this->rollback;
         $callback();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function commit()
     {
         if (null !== $this->commit) {

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the transaction package.
  *
@@ -10,14 +11,12 @@
 
 namespace SK\Transaction;
 
-
 use Doctrine\DBAL\Connection;
 
 class DoctrineConnectionCallbackTransaction extends AbstractDoctrineTransaction
 {
-
     /**
-     * @var \Closure
+     * @var callable
      */
     protected $execute;
 
@@ -26,6 +25,10 @@ class DoctrineConnectionCallbackTransaction extends AbstractDoctrineTransaction
      */
     protected $connection;
 
+    /**
+     * @param Connection $connection
+     * @param callable $execute
+     */
     public function __construct(Connection $connection, \Closure $execute)
     {
         $this->execute = $execute;
@@ -33,18 +36,19 @@ class DoctrineConnectionCallbackTransaction extends AbstractDoctrineTransaction
     }
 
     /**
-     * @return Connection
+     * {@inheritdoc}
      */
     protected function getConnection()
     {
         return $this->connection;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function doExecute(ParameterBag $parameterBag = null)
     {
         $callback = $this->execute;
         $callback($parameterBag, $this->getConnection());
     }
-
-
 }

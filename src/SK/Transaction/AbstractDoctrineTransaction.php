@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the transaction package.
  *
@@ -13,20 +14,20 @@ namespace SK\Transaction;
 use Doctrine\DBAL\Connection;
 
 /**
- * Class AbstractDoctrineTransaction
+ * Class AbstractDoctrineTransaction.
  *
  * @author  Sebastian Kroczek <sk@xbug.de>
- * @package SK\Transaction
  */
 abstract class AbstractDoctrineTransaction extends AbstractTransaction implements Commit, OwnExceptionRollback
 {
-
     /**
      * @return Connection
      */
     abstract protected function getConnection();
 
-
+    /**
+     * {@inheritdoc}
+     */
     public function execute(ParameterBag $parameterBag = null)
     {
         $this->getConnection()->beginTransaction();
@@ -34,12 +35,17 @@ abstract class AbstractDoctrineTransaction extends AbstractTransaction implement
         parent::execute($parameterBag);
     }
 
-
+    /**
+     * {@inheritdoc}
+     */
     protected function doRollback()
     {
         $this->getConnection()->rollBack();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function commit()
     {
         $this->getConnection()->commit();

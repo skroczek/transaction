@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the transaction package.
  *
@@ -11,12 +12,9 @@
 namespace SK\Transaction;
 
 /**
- * Transactions which implements this interface will call the own doRollback method if an exception is thrown during
+ * Transactions implementing this interface MUST call the own rollback method if an exception is thrown during
  * execution.
- *
- * @package SK\Transaction
  */
 interface OwnExceptionRollback
 {
-
 }
