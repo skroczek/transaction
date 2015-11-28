@@ -31,9 +31,9 @@ class CallbackTransaction extends AbstractTransaction implements Commit
     /**
      * Constructor
      *
-     * @param callable $execute
-     * @param callable $rollback
-     * @param callable $commit
+     * @param callable|\Closure $execute  Callable or closure to execute
+     * @param callable|\Closure $rollback Callable or closure which manage the rollback
+     * @param callable|\Closure $commit   Optional commit callable or closure
      */
     public function __construct(\Closure $execute, \Closure $rollback, \Closure $commit = null)
     {
