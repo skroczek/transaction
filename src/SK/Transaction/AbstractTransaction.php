@@ -119,8 +119,8 @@ abstract class AbstractTransaction implements TransactionInterface, LoggerAwareI
 
     /**
      * Handle roll back of the transaction.
-     * This method is only called if an exception occurred in one of the next transaction(s).
-     * But you can change this behaviour by implementing the OwnExceptionRollback interface, In this case this method
+     * This method is only called if an exception occurred in one of the following transaction(s).
+     * You can change this behaviour by implementing the OwnExceptionRollback interface, In this case this method
      * is also called, if the exception occurred in the own execution method.
      * If an exception occurred during rollback this method throws an RollbackException exception.
      *
