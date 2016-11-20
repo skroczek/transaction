@@ -17,7 +17,7 @@ namespace SK\Transaction;
  *
  * @author  Sebastian Kroczek <sk@xbug.de>
  */
-interface Commit
+interface CommitInterface
 {
     /**
      * Commit the transaction. This method MUST NOT throw an exception.

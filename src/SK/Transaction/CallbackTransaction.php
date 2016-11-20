@@ -16,7 +16,7 @@ namespace SK\Transaction;
  *
  * @author  Sebastian Kroczek <sk@xbug.de>
  */
-class CallbackTransaction extends AbstractTransaction implements Commit
+class CallbackTransaction extends AbstractTransaction implements CommitInterface
 {
     /**
      * @var callable

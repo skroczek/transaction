@@ -17,6 +17,6 @@ namespace SK\Transaction;
  *
  * @author Sebastian Kroczek <sk@xbug.de>
  */
-interface OwnExceptionRollback
+interface OwnExceptionRollbackInterface
 {
 }

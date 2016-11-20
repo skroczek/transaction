@@ -97,7 +97,7 @@ abstract class AbstractTransaction implements TransactionInterface, LoggerAwareI
                 'An exception occurred during transaction: {exception_message}',
                 array('exception_message' => $e->getMessage(), 'exception' => $e)
             );
-            if ($this instanceof OwnExceptionRollback) {
+            if ($this instanceof OwnExceptionRollbackInterface) {
                 $this->rollback($e);
             }
             throw $e;
@@ -111,7 +111,7 @@ abstract class AbstractTransaction implements TransactionInterface, LoggerAwareI
             throw $e;
         }
 
-        if ($this instanceof Commit) {
+        if ($this instanceof CommitInterface) {
             $this->commit();
         }
     }

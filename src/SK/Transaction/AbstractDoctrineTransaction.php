@@ -18,7 +18,7 @@ use Doctrine\DBAL\Connection;
  *
  * @author  Sebastian Kroczek <sk@xbug.de>
  */
-abstract class AbstractDoctrineTransaction extends AbstractTransaction implements Commit, OwnExceptionRollback
+abstract class AbstractDoctrineTransaction extends AbstractTransaction implements CommitInterface, OwnExceptionRollbackInterface
 {
     /**
      * @return Connection
