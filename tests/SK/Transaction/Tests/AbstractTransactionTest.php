@@ -191,7 +191,7 @@ class AbstractTransactionTest extends \PHPUnit_Framework_TestCase
         $transaction->append($transaction1);
         $transaction->append($transaction2);
 
-        $logger = $this->getMock('\Psr\Log\LoggerInterface');
+        $logger = $this->getMockBuilder('\Psr\Log\LoggerInterface')->getMock();
         $logger->expects($this->once())->method('error');
         $logger->expects($this->once())->method('emergency');
 
@@ -228,7 +228,7 @@ class AbstractTransactionTest extends \PHPUnit_Framework_TestCase
         $transaction2->expects($this->never())
             ->method('doRollback');
 
-        $logger = $this->getMock('\Psr\Log\LoggerInterface');
+        $logger = $this->getMockBuilder('\Psr\Log\LoggerInterface')->getMock();
         $logger->expects($this->once())->method('error');
         $logger->expects($this->once())->method('emergency');
 
