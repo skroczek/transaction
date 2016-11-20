@@ -15,7 +15,6 @@ namespace SK\Transaction;
  * Interface Commit. Transactions implementing this interface MUST call the commit method after the successful
  * execution of all other transactions.
  *
- * @package SK\Transaction
  * @author  Sebastian Kroczek <sk@xbug.de>
  */
 interface Commit

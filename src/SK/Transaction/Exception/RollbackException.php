@@ -13,6 +13,11 @@ namespace SK\Transaction\Exception;
 
 use Exception;
 
+/**
+ * Class RollbackException.
+ *
+ * @author Sebastian Kroczek <sk@xbug.de>
+ */
 class RollbackException extends \RuntimeException
 {
     /**

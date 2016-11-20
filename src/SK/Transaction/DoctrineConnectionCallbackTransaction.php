@@ -13,6 +13,11 @@ namespace SK\Transaction;
 
 use Doctrine\DBAL\Connection;
 
+/**
+ * Class DoctrineConnectionCallbackTransaction.
+ *
+ * @author Sebastian Kroczek <sk@xbug.de>
+ */
 class DoctrineConnectionCallbackTransaction extends AbstractDoctrineTransaction
 {
     /**

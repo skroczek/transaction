@@ -22,7 +22,6 @@ use SK\Transaction\Exception\RollbackException;
  * You can use this class to implement your own transaction.
  *
  * @author  Sebastian Kroczek <sk@xbug.de>
- * @package SK\Transaction
  */
 abstract class AbstractTransaction implements TransactionInterface, LoggerAwareInterface
 {

@@ -14,7 +14,7 @@ namespace SK\Transaction;
 /**
  * Interface TransactionInterface.
  *
- * @package SK\Transaction
+ * @author Sebastian Kroczek <sk@xbug.de>
  */
 interface TransactionInterface
 {

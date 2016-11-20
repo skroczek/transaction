@@ -11,6 +11,11 @@
 
 namespace SK\Transaction;
 
+/**
+ * Class ParameterBag.
+ *
+ * @author Sebastian Kroczek <sk@xbug.de>
+ */
 class ParameterBag implements \ArrayAccess
 {
     /**

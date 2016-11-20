@@ -11,6 +11,11 @@
 
 namespace SK\Transaction\Exception;
 
+/**
+ * Class CircularReferenceException.
+ *
+ * @author Sebastian Kroczek <sk@xbug.de>
+ */
 class CircularReferenceException extends \RuntimeException
 {
     public function __construct($message = 'A circular reference has been detected.', $code = 0, \Exception $previous = null)

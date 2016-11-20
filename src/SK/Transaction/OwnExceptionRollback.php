@@ -14,6 +14,8 @@ namespace SK\Transaction;
 /**
  * Transactions implementing this interface MUST call the own rollback method if an exception is thrown during
  * execution.
+ *
+ * @author Sebastian Kroczek <sk@xbug.de>
  */
 interface OwnExceptionRollback
 {
