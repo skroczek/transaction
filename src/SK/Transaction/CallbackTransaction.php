@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the transaction package.
+ * This file is part of the SK/Transaction package.
  *
- * (c) Sebastian Kroczek <sk@xbug.de>
+ * (c) 2016 Sebastian Kroczek <sk@xbug.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -34,7 +34,7 @@ class CallbackTransaction extends AbstractTransaction implements Commit
     protected $commit;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param callable|\Closure $execute  Callable or closure to execute
      * @param callable|\Closure $rollback Callable or closure which manage the rollback

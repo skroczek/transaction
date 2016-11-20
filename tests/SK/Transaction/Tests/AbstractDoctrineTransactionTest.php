@@ -1,8 +1,9 @@
 <?php
+
 /*
- * This file is part of the transaction package.
+ * This file is part of the SK/Transaction package.
  *
- * (c) Sebastian Kroczek <sebastian@kroczek.de>
+ * (c) 2016 Sebastian Kroczek <sk@xbug.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,9 +11,7 @@
 
 namespace SK\Transaction\Tests;
 
-
 use Doctrine\DBAL\Connection;
-
 
 class AbstractDoctrineTransactionTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,7 +35,6 @@ class AbstractDoctrineTransactionTest extends \PHPUnit_Framework_TestCase
                 )
             )
             ->getMock();
-
 
         return $mock;
     }
@@ -64,9 +62,9 @@ class AbstractDoctrineTransactionTest extends \PHPUnit_Framework_TestCase
      * @param int $rollbackCount
      *
      * @return Connection|\PHPUnit_Framework_MockObject_MockObject
+     *
      * @internal param int $transactionCount
      * @internal param bool $forceRollback
-     *
      */
     public function getRollbackConnectionMock($transactionBeginCount = 1, $rollbackCount = null)
     {
@@ -111,11 +109,9 @@ class AbstractDoctrineTransactionTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('doExecute');
 
-
         $abstractTransaction->append($transaction);
 
         $abstractTransaction->execute();
-
     }
 
     /**
@@ -149,7 +145,6 @@ class AbstractDoctrineTransactionTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('doExecute')
             ->willThrowException(new \Exception('Dummy Exception'));
-
 
         $transaction2 = $this->createTransactionMock($connection);
         $transaction2
