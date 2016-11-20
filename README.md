@@ -1,4 +1,5 @@
-# Transaction [![Build Status](https://travis-ci.org/skroczek/transaction.svg?branch=master)](https://travis-ci.org/skroczek/transaction)
+# Transaction
+[![Build Status](https://travis-ci.org/skroczek/transaction.svg?branch=master)](https://travis-ci.org/skroczek/transaction) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/26252d9a-f7c7-4ece-8a83-40b40149272c/mini.png)](https://insight.sensiolabs.com/projects/26252d9a-f7c7-4ece-8a83-40b40149272c) [![Coverage Status](https://coveralls.io/repos/github/skroczek/transaction/badge.svg?branch=master)](https://coveralls.io/github/skroczek/transaction?branch=master)
 
 ## Introduction
 
