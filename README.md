@@ -86,4 +86,3 @@ try {
 ## License
 
 This library is under the MIT license. See the complete license in the LICENCE file.
-
